@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class HomeWork3 {
@@ -16,15 +17,16 @@ public class HomeWork3 {
         // 2) Найти минимальное значение
         int min = minNumber(res2);
         System.out.println("Минимальное число в массиве: " + min);
-        //3) Найти максимальное значение
+        // 3) Найти максимальное значение
         int max = maxNumber(res2);
         System.out.println("Максимальное число в массиве: " + max);
-        //4) Найти среднее значение
+        // 4) Найти среднее значение
         double average = averageNumbers(res2);
-        System.out.println(average);
+        System.out.println("Cреднее значение: " + average);
+
+        planetsCounter(15);
     }
 
-    
     // формирование числового массива
     static ArrayList<Integer> createArray(int n, int maxValue) {
         ArrayList<Integer> list = new ArrayList<>();
@@ -56,7 +58,7 @@ public class HomeWork3 {
         return min;
     }
 
-    //максимальное значение
+    // максимальное значение
     static int maxNumber(ArrayList<Integer> arr) {
         int max = arr.get(0);
         for (int i = 1; i < arr.size(); i++) {
@@ -67,7 +69,7 @@ public class HomeWork3 {
         return max;
     }
 
-    //среднее значение
+    // среднее значение
     static double averageNumbers(ArrayList<Integer> arr) {
         double count = 0;
         for (int i = 0; i < arr.size(); i++) {
@@ -75,4 +77,53 @@ public class HomeWork3 {
         }
         return count / arr.size();
     }
+
+    // 2. Заполнить список названиями планет Солнечной системы в произвольном
+    // порядке с повторениями.
+    // Вывести название каждой планеты и количество его повторений в списке.
+    static void planetsCounter(int n) {
+        List<String> listPlanets = List.of("Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus",
+                "Neptune");
+        List<String> randPlanets = new ArrayList<String>(n);
+        int[] counts = new int[listPlanets.size()];
+
+        Random rand = new Random();
+
+        for (int i = 0; i < n; i++) {
+            randPlanets.add(listPlanets.get(rand.nextInt(listPlanets.size())));
+            System.out.print(randPlanets.get(i) + " ");
+            counts[listPlanets.indexOf(randPlanets.get(i))]++;
+        }
+        System.out.println();
+
+        for (int i = 0; i < counts.length; i++)
+            System.out.printf("%s - %s\n", listPlanets.get(i), counts[i]);
+        System.out.println();
+        //Для списка из задачи про Солнечную систему удалить все повторяющиеся элементы.
+        for (int i = 0; i < randPlanets.size(); i++) {
+            for (int j = i + 1; j < randPlanets.size(); j++) {
+                if (randPlanets.get(i).equals(randPlanets.get(j))) {
+                    randPlanets.remove(j);
+                    j--;
+                }
+            }
+        }
+        System.out.println("Список уникальных элементов: ");
+
+        int[] uniqueCol = new int[listPlanets.size()];
+        for (String planet : randPlanets) {
+            uniqueCol[listPlanets.indexOf(planet)]++;
+        }
+
+        for (int i = 0; i < listPlanets.size(); i++) {
+            if (uniqueCol[i] == 0) {
+                System.out.printf("%s - %s\n", listPlanets.get(i), "0");
+            } else {
+                System.out.printf("%s - %s\n", listPlanets.get(i), uniqueCol[i]);
+            }
+        }
+
+
+    }
+
 }
